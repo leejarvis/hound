@@ -2,7 +2,7 @@ PATH
   remote: .
   specs:
     hound (0.0.1)
-      rails (~> 3.2.13.rc1)
+      rails (>= 3.2.0)
 
 GEM
   remote: http://rubygems.org/

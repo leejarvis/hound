@@ -1,0 +1,3 @@
+module Hound
+  VERSION = "0.0.1"
+end

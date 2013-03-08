@@ -1,6 +1,5 @@
 require 'hound/model'
 require 'hound/controller'
-require 'hound/action'
 require 'hound/config'
 require 'hound/version'
 
@@ -35,4 +34,5 @@ end
 
 ActiveSupport.on_load :active_record do
   include Hound::Model
+  require 'hound/action'
 end

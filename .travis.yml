@@ -1,9 +1,8 @@
+language: ruby
+before_script: 'cd test/dummy && bundle exec rake db:migrate'
 rvm:
   - 1.9.2
   - 1.9.3
-  - ruby-head
-  - jruby-19mode
-  - rbx-18mode
 notifications:
   email:
     on_success: change

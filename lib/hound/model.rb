@@ -23,6 +23,8 @@ module Hound
         class_attribute :hound_options
         self.hound_options = options.dup
 
+        attr_accessor :hound
+
         # Add action hooks
         after_create :hound_create if options[:actions].include?('create')
         before_update :hound_update if options[:actions].include?('update')
@@ -32,21 +34,34 @@ module Hound
 
     module InstanceMethods
 
+      # Return all actions in provided date.
+      def actions_for_date(date)
+        actions.where(created_at: date)
+      end
+
+      # Returns true if hound is enabled on this instance.
+      def hound?
+        hound != false
+      end
+
       private
 
       def hound_create
+        return unless hound?
         attributes = default_attributes.merge(action: 'create')
         actions.create! attributes
         enforce_limit
       end
 
       def hound_update
+        return unless hound?
         attributes = default_attributes.merge(action: 'update')
         actions.create! attributes
         enforce_limit
       end
 
       def hound_destroy
+        return unless hound?
         attributes = default_attributes.merge(action: 'destroy')
         attributes.merge!(
           actionable_id: self.id,

@@ -65,6 +65,16 @@ Hound.config.user_class = 'CustomUser'
 Hound.config.user_class = AdminUser # String or constant
 ```
 
+You can also disable Hound on a model instance basis:
+
+```ruby
+article = Article.new title: 'Hello, World!'
+article.hound? #=> true
+article.hound = false # disable hound
+article.save
+article.actions #=> []
+```
+
 ### Cleaning up actions
 
 With all this action creating we're doing, your database is bound to start

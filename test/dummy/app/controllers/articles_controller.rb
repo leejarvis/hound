@@ -8,6 +8,7 @@ class ArticlesController < ApplicationController
   def update
     @article = Article.find(params[:id])
     @article.update_attributes(params[:article])
+    hound_action @article, 'something_custom'
     head :ok
   end
 

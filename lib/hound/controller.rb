@@ -21,6 +21,10 @@ module Hound
 
     private
 
+    def hound_action(object, action = params[:action])
+      object.actions.create(action: action, user_id: hound_user_id)
+    end
+
     def set_hound_user
       Hound.store[:current_user_id] = hound_user_id
     end

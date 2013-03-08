@@ -56,3 +56,11 @@ class ApplicationController < ActionController::Base
   end
 end
 ```
+
+For this to work successfully you must tell Hound about your user class
+(note that this value defaults to 'User' already).
+
+```ruby
+Hound.config.user_class = 'CustomUser'
+Hound.config.user_class = AdminUser # String or constant
+```

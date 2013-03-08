@@ -7,7 +7,7 @@ class HoundTest < ActiveSupport::TestCase
 
   test 'hound_options' do
     assert_equal %w'create update destroy', Article.hound_options[:actions]
-    assert_equal %w'create', Post.hound_options[:actions]
+    assert_equal %w'update', Post.hound_options[:actions]
   end
 
   test 'hound model creation' do
@@ -27,5 +27,13 @@ class HoundTest < ActiveSupport::TestCase
     assert_equal 'destroy', action.action
     assert_equal 'Article', action.actionable_type
     assert_equal @article.id, action.actionable_id
+  end
+
+  test 'limiting actions' do
+    @post = Post.create! text: 'lorem ipsum'
+    5.times do |n|
+      @post.update_attributes(text: "lorem ipsum #{n}")
+    end
+    assert_equal 3, @post.actions.size
   end
 end

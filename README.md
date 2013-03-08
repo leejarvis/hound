@@ -64,3 +64,30 @@ For this to work successfully you must tell Hound about your user class
 Hound.config.user_class = 'CustomUser'
 Hound.config.user_class = AdminUser # String or constant
 ```
+
+### Cleaning up actions
+
+With all this action creating we're doing, your database is bound to start
+getting full quickly. You have two options for cleaning up after yourself,
+either create a rake task:
+
+```ruby
+task :prune_hound_actions do
+  Hound.actions.where('created_at < ?', 1.week.ago).delete_all
+end
+```
+
+And run it as a cron job, or you can simply limit records on a per model basis
+
+```ruby
+class Article < ActiveRecord::Base
+  hound limit: 10
+end
+```
+
+Now Hound will never store more than 10 actions for an Article. You can
+configure this globally through `Hound.config.limit`, too. Do note though
+that adding this functionality means whenever an action is tracked, Hound
+will not only create a new action, it will check and destroy any actions
+outside of this limit. This requires an extra call to the database, so if
+that could be an issue, using a rake task might be a better idea.

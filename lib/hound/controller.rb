@@ -11,14 +11,8 @@ module Hound
     # This method should be overridden for providing custom behavour.
     def hound_user
       @hound_user ||= current_user
-    rescue NoMethodError
+    rescue NameError
       nil
-    end
-
-    def hound_user_type
-      if hound_user
-        hound_user.class.base_class.name
-      end
     end
 
     def hound_user_id
@@ -28,8 +22,7 @@ module Hound
     private
 
     def set_hound_user
-      Hound.store[:hound_user_type] = hound_user_type
-      Hound.store[:hound_user_id] = hound_user_id
+      Hound.store[:current_user_id] = hound_user_id
     end
 
   end

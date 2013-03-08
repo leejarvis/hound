@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130307183451) do
+ActiveRecord::Schema.define(:version => 20130308110847) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -24,10 +24,11 @@ ActiveRecord::Schema.define(:version => 20130307183451) do
     t.string   "action",          :null => false
     t.string   "actionable_type", :null => false
     t.integer  "actionable_id",   :null => false
+    t.integer  "user_id"
     t.datetime "created_at"
   end
 
-  add_index "hound_actions", ["actionable_type", "actionable_id"], :name => "index_houndd_actions_on_actionable_type_and_actionable_id"
+  add_index "hound_actions", ["actionable_type", "actionable_id"], :name => "index_hound_actions_on_actionable_type_and_actionable_id"
 
   create_table "posts", :force => true do |t|
     t.text     "text"

@@ -34,19 +34,27 @@ module Hound
       private
 
       def hound_create
-        actions.create! action: 'create'
+        attributes = default_attributes.merge(action: 'create')
+        actions.create! attributes
       end
 
       def hound_update
-        actions.create! action: 'update'
+        attributes = default_attributes.merge(action: 'update')
+        actions.create! attributes
       end
 
       def hound_destroy
-        Hound::Action.create(
-          actionable_id:   self.id,
-          actionable_type: self.class.base_class.name,
-          action: 'destroy'
-        )
+        attributes = default_attributes.merge(action: 'destroy')
+        attributes.merge!(
+          actionable_id: self.id,
+          actionable_type: self.class.base_class.name)
+        Hound::Action.create(attributes)
+      end
+
+      def default_attributes
+        {
+          user_id: Hound.store[:current_user_id]
+        }
       end
 
     end

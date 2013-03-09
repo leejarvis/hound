@@ -75,7 +75,7 @@ article.save
 article.actions #=> []
 ```
 
-### Cleaning up actions
+## Cleaning Up
 
 With all this action creating we're doing, your database is bound to start
 getting full quickly. You have two options for cleaning up after yourself,
@@ -101,3 +101,10 @@ that adding this functionality means whenever an action is tracked, Hound
 will not only create a new action, it will check and destroy any actions
 outside of this limit. This requires an extra call to the database, so if
 that could be an issue, using a rake task might be a better idea.
+
+## TODO
+
+* Store model changes
+* Implement action grouping
+* Generate a config initializer on install?
+* Disable hound in test environment?

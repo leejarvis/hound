@@ -87,6 +87,33 @@ article.actions.last.changeset
   #=> {"title" => ["Hello, World!", "Salut, World!"]}
 ```
 
+## Displaying model activity
+
+Because Hound hooks into your existing user model as well as any models
+you tell it to track, you can display activity from either side. In fact,
+your user object doesn't even need to belong to the object you're tracking.
+
+```ruby
+current_user.name #=> "Lee"
+article = Article.create! title: 'Hello, World!'
+
+article.actions.each do |action|
+  puts "#{action.user.name} #{action + 'ed'} the " \
+    "#{action.actionable_type} #{action.actionable.title}"
+end
+
+current_user.actions.each do |action|
+  puts "#{action.user.name} #{action + 'ed'} the " \
+    "#{action.actionable_type} #{action.actionable.title}"
+end
+```
+
+Both of the above snippets will print the same thing:
+
+```
+Lee created the Article Hello, World!
+```
+
 ## Cleaning Up
 
 With all this action creating we're doing, your database is bound to start

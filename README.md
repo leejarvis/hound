@@ -75,6 +75,18 @@ article.save
 article.actions #=> []
 ```
 
+## Changes
+
+Hound also tracks the changes made when updating your hounded records. You
+can access the change updates through the `changeset` attribute:
+
+```ruby
+article = Article.create! title: 'Hello, World!'
+article.update_attributes(title: 'Salut, World!')
+article.actions.last.changeset
+  #=> {"title" => ["Hello, World!", "Salut, World!"]}
+```
+
 ## Cleaning Up
 
 With all this action creating we're doing, your database is bound to start
@@ -104,7 +116,6 @@ that could be an issue, using a rake task might be a better idea.
 
 ## TODO
 
-* Store model changes
 * Implement action grouping
 * Generate a config initializer on install?
 * Disable hound in test environment?

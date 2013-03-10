@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130308110847) do
+ActiveRecord::Schema.define(:version => 20130310103454) do
 
   create_table "articles", :force => true do |t|
     t.string   "title"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(:version => 20130308110847) do
     t.integer  "actionable_id",   :null => false
     t.integer  "user_id"
     t.datetime "created_at"
+    t.text     "changeset"
   end
 
   add_index "hound_actions", ["actionable_type", "actionable_id"], :name => "index_hound_actions_on_actionable_type_and_actionable_id"

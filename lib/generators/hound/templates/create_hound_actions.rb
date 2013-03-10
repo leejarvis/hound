@@ -6,6 +6,7 @@ class CreateHoundActions < ActiveRecord::Migration
       t.integer  :actionable_id,   null: false
       t.integer  :user_id
       t.datetime :created_at
+      t.text     :changeset
     end
     add_index :hound_actions, [:actionable_type, :actionable_id]
   end

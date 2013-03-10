@@ -56,6 +56,7 @@ module Hound
       def hound_update
         return unless hound?
         attributes = default_attributes.merge(action: 'update')
+        attributes.merge!(changeset: changes)
         actions.create! attributes
         enforce_limit
       end

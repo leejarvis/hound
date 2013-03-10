@@ -20,4 +20,9 @@ class ModelTest < ActiveSupport::TestCase
     assert_empty article.actions
   end
 
+  test 'tracking model changes' do
+    @article.update_attributes(title: 'Salut, World!')
+    assert_equal({"title" => ["Hello, World!", "Salut, World!"]}, @article.actions.last.changeset)
+  end
+
 end

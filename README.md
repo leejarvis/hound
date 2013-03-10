@@ -75,7 +75,7 @@ article.save
 article.actions #=> []
 ```
 
-## Changes
+## Tracking Changes
 
 Hound also tracks the changes made when updating your hounded records. You
 can access the change updates through the `changeset` attribute:

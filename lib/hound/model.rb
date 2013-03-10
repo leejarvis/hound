@@ -47,23 +47,28 @@ module Hound
       private
 
       def hound_create
-        attributes = default_attributes.merge(action: 'create')
-        actions.create! attributes
-        enforce_limit
+        create_action(action: 'create')
       end
 
       def hound_update
-        attributes = default_attributes.merge(action: 'update')
-        actions.create! attributes
-        enforce_limit
+        create_action(action: 'update')
       end
 
       def hound_destroy
-        attributes = default_attributes.merge(action: 'destroy')
-        attributes.merge!(
+        create_action({
+          action: 'destroy',
           actionable_id: self.id,
-          actionable_type: self.class.base_class.name)
-        Hound::Action.create(attributes)
+          actionable_type: self.class.base_class.name
+          }, false)
+      end
+
+      def create_action(attributes, scoped = true)
+        attributes = default_attributes.merge(attributes)
+        if scoped
+          actions.create!(attributes)
+        else
+          Hound.actions.create(attributes)
+        end
         enforce_limit
       end
 

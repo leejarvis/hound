@@ -1,6 +1,7 @@
 ## HEAD
 
-* Hook into user model and add `has_many :actions`
+* Hook into user model and add `has_many :actions`.
+* Ensure Hound does not raise an exception if a user class does not exist.
 
 ## v0.2.0 - March 10, 2013
 

@@ -9,7 +9,11 @@ module Hound
 
       # Tell Hound to track this models actions.
       #
-      # options - a Hash of configuration options.
+      # options - a Hash of configuration options (default: {}).
+      #           :limit   - An Integer limit to restrict the maximum actions
+      #                      stored (optional, default: nil (no limit)).
+      #           :actions - An Array of actions to track.
+      #                      (default: [:create, :update, :destroy])
       def hound(options = {})
         send :include, InstanceMethods
 

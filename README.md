@@ -114,6 +114,26 @@ Both of the above snippets will print the same thing:
 Lee created the Article Hello, World!
 ```
 
+## Console
+
+Hound implements a storage facility on the current thread for storing
+the id of the current user. This is how we make it available to the model
+data without sending it via the controller itself. This means when
+creating records via the console, there will be no `current_user` available.
+
+```ruby
+Article.create! title: 'Foo'
+_.actions.last.user #=> nil
+```
+
+You can solve this by setting `Hound.store[:current_user_id]`:
+
+```ruby
+Hound.store[:current_user_id] = User.create! name: 'Lee'
+Article.create! title: 'Foo'
+_.actions.last.user.name #=> "Lee"
+```
+
 ## Cleaning Up
 
 With all this action creating we're doing, your database is bound to start

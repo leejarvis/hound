@@ -122,16 +122,18 @@ data without sending it via the controller itself. This means when
 creating records via the console, there will be no `current_user` available.
 
 ```ruby
-Article.create! title: 'Foo'
-_.actions.last.user #=> nil
+>> Article.create! title: 'Foo'
+>> _.actions.last.user
+=> nil
 ```
 
 You can solve this by setting `Hound.store[:current_user_id]`:
 
 ```ruby
-Hound.store[:current_user_id] = User.create! name: 'Lee'
-Article.create! title: 'Foo'
-_.actions.last.user.name #=> "Lee"
+>> Hound.store[:current_user_id] = User.create!(name: 'Lee').id
+>> Article.create! title: 'Foo'
+>> _.actions.last.user.name
+=> "Lee"
 ```
 
 ## Cleaning Up

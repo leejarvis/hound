@@ -26,9 +26,9 @@ module Hound
         attr_accessor :hound
 
         # Add action hooks
-        after_create :hound_create if options[:actions].include?('create')
-        before_update :hound_update if options[:actions].include?('update')
-        after_destroy :hound_destroy if options[:actions].include?('destroy')
+        after_create :hound_create, if: :hound? if options[:actions].include?('create')
+        before_update :hound_update, if: :hound? if options[:actions].include?('update')
+        after_destroy :hound_destroy, if: :hound? if options[:actions].include?('destroy')
       end
     end
 
@@ -47,14 +47,12 @@ module Hound
       private
 
       def hound_create
-        return unless hound?
         attributes = default_attributes.merge(action: 'create')
         actions.create! attributes
         enforce_limit
       end
 
       def hound_update
-        return unless hound?
         attributes = default_attributes.merge(action: 'update')
         attributes.merge!(changeset: changes)
         actions.create! attributes
@@ -62,7 +60,6 @@ module Hound
       end
 
       def hound_destroy
-        return unless hound?
         attributes = default_attributes.merge(action: 'destroy')
         attributes.merge!(
           actionable_id: self.id,

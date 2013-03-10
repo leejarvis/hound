@@ -55,11 +55,7 @@ module Hound
       end
 
       def hound_destroy
-        create_action({
-          action: 'destroy',
-          actionable_id: self.id,
-          actionable_type: self.class.base_class.name
-          }, false)
+        create_action({action: 'destroy'}, false)
       end
 
       def create_action(attributes, scoped = true)
@@ -67,7 +63,11 @@ module Hound
         if scoped
           actions.create!(attributes)
         else
-          Hound.actions.create(attributes)
+          # unscoped actions should still always save the associated data
+          Hound.actions.create(attributes.merge({
+            actionable_id: self.id,
+            actionable_type: self.class.base_class.name
+          }))
         end
         enforce_limit
       end

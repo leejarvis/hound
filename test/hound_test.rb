@@ -36,4 +36,14 @@ class HoundTest < ActiveSupport::TestCase
     end
     assert_equal 3, @post.actions.size
   end
+
+  test 'user has many actions' do
+    user = User.create! name: 'Lee'
+    assert user.respond_to?(:actions)
+    article = Article.create! title: 'Hello, World!'
+    action = article.actions.last
+    action.user = user
+    assert action.save
+    assert_equal article.actions, user.actions
+  end
 end

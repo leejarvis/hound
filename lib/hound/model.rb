@@ -54,7 +54,6 @@ module Hound
 
       def hound_update
         attributes = default_attributes.merge(action: 'update')
-        attributes.merge!(changeset: changes)
         actions.create! attributes
         enforce_limit
       end
@@ -70,7 +69,8 @@ module Hound
 
       def default_attributes
         {
-          user_id: Hound.store[:current_user_id]
+          user_id: Hound.store[:current_user_id],
+          changeset: changes
         }
       end
 

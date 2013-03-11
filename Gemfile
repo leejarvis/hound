@@ -15,3 +15,8 @@ gem "jquery-rails"
 
 # To use debugger
 # gem 'debugger'
+group :development, :test do
+  gem 'sqlite3'
+  gem 'mysql2'
+  gem 'pg'
+end

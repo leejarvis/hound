@@ -1,5 +1,7 @@
 # Hound
 
+[![Build Status](https://travis-ci.org/injekt/hound.png?branch=master)](https://travis-ci.org/injekt/hound)
+
 ## Installation
 
 Add Hound to your `Gemfile` and run `bundle install`:

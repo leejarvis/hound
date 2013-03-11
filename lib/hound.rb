@@ -42,8 +42,8 @@ ActiveSupport.on_load :active_record do
         has_many :actions, class_name: 'Hound::Action', foreign_key: 'user_id'
       end
     rescue NameError
-      warn "Hound is configured with user class `#{Hound.config.user_class}' "\
-        "but this model does not exist"
+      # warn "Hound is configured with user class `#{Hound.config.user_class}' "\
+        # "but this model does not exist"
     end
   end
 end

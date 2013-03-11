@@ -1,9 +1,18 @@
 language: ruby
-before_script: 'cd test/dummy && bundle exec rake db:migrate'
+
 rvm:
-  - 1.9.2
   - 1.9.3
-notifications:
-  email:
-    on_success: change
-    on_failure: always
+  - jruby-19mode
+
+env:
+  - DB=sqlite
+  - DB=mysql
+  - DB=postgresql
+
+before_script:
+  - rake app:db:create
+  - rake app:db:migrate
+  - rake app:db:test:prepare
+
+after_script:
+  - rake app:db:rollback

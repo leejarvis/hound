@@ -165,6 +165,20 @@ will not only create a new action, it will check and destroy any actions
 outside of this limit. This requires an extra call to the database, so if
 that could be an issue, using a rake task might be a better idea.
 
+## But we already have Paper Trail?
+
+Yes, and Paper Trail is awesome. Hound is not designed to replace it. They
+do different things. Hound is designed to track activity (in the form of
+actions) on a model. Paper Trail does the same thing but it stores snapshots
+of your model at certain times (when they change). Hound is not just for
+tracking changes to your model, but you can attach custom activity to it, too.
+
+* Do I want custom actions and activity attached to my models? Use Hound.
+* Do I need to restore my model to an earlier time? Use Paper Trail.
+
+At [Allur](https://www.allur.com) we use them both for different things,
+and they work great.
+
 ## TODO
 
 * Implement action grouping

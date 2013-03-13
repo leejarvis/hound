@@ -2,6 +2,18 @@
 
 [![Build Status](https://travis-ci.org/injekt/hound.png?branch=master)](https://travis-ci.org/injekt/hound)
 
+Hound is designed to track activity on models. It'll track your usual
+`create` `update` and `destroy` actions as well as custom activity.
+
+At [Allur](https://www.allur.com) or more specifically the
+[Spark CRM](http://allurspark.com) we've built, we use Hound for implementing
+activity tabs on our popular models. These activity tabs display
+the last x amount of actions taken out upon these models. We have a lot
+of custom associations so we can't simply track the `update` to models.
+With Hound we can build custom actions on the fly.
+
+If you need something similar, Hound could be a good fit.
+
 ## Installation
 
 Add Hound to your `Gemfile` and run `bundle install`:

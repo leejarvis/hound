@@ -17,9 +17,7 @@ module Hound
       def hound(options = {})
         send :include, InstanceMethods
 
-        has_many :actions,
-          as: 'actionable',
-          class_name: 'Hound::Action'
+        has_many :actions, as: :actionable, class_name: 'Hound::Action'
 
         options[:actions] ||= Hound.config.actions
         options[:actions] = Array(options[:actions]).map(&:to_s)
@@ -33,6 +31,10 @@ module Hound
         after_create :hound_create, if: :hound? if options[:actions].include?('create')
         before_update :hound_update, if: :hound? if options[:actions].include?('update')
         after_destroy :hound_destroy, if: :hound? if options[:actions].include?('destroy')
+      end
+
+      def hound_user(options = {})
+        has_many :actions, as: :user, class_name: 'Hound::Action'
       end
     end
 
@@ -79,6 +81,7 @@ module Hound
       def default_attributes
         {
           user_id: Hound.store[:current_user_id],
+          user_type: Hound.store[:current_user_type],
           changeset: changes
         }
       end

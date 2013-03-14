@@ -72,12 +72,21 @@ end
 ```
 
 For this to work successfully you must tell Hound about your user class
-(note that this value defaults to 'User' already).
+using the `hound_user` method. The `user` association on the `Hound::Action`
+class is polymorphic, so you can use `hound_user` in more than one class.
 
 ```ruby
-Hound.config.user_class = 'CustomUser'
-Hound.config.user_class = AdminUser # String or constant
+class User
+  hound_user
+end
+
+class Admin
+  hound_user
+end
 ```
+
+Now `hound_user` can return either an instance of `User` or an instance of
+`Admin`.
 
 You can also disable Hound on a model instance basis:
 

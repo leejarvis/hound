@@ -19,14 +19,20 @@ module Hound
       hound_user.try(:id)
     end
 
+    def hound_user_type
+      hound_user.class.base_class.name if hound_user
+    end
+
     private
 
     def hound_action(object, action = params[:action])
-      object.actions.create(action: action, user_id: hound_user_id)
+      object.actions.create(action: action,
+        user_id: hound_user_id, user_type: hound_user_type)
     end
 
     def set_hound_user
       Hound.store[:current_user_id] = hound_user_id
+      Hound.store[:current_user_type] = hound_user_type
     end
 
   end

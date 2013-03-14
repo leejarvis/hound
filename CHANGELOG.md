@@ -1,5 +1,6 @@
-## HEAD
+## v0.3.0 - March 14, 2013
 
+* Implement `hound_user` and polymorphic user association (#3).
 * Hook into user model and add `has_many :actions`.
 * Ensure Hound does not raise an exception if a user class does not exist.
 
